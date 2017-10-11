@@ -1,15 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.HardwarePushbotA;
+//import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-/**
- * Created by MSRobotics13 on 10/4/2017.
- */
-
+@TeleOp(name="FourDrive", group="Pushbot")
 public class FourMotorsDemo extends OpMode {
-    HardwarePushbot robot = new HardwarePushbot();
+    HardwarePushbotA robot = new HardwarePushbotA();
 
     public void init() {
         robot.init(hardwareMap);
@@ -36,6 +34,8 @@ public class FourMotorsDemo extends OpMode {
         //FIXME shut down all motor servos etc
         robot.rightDrive.setPower(0);
         robot.leftDrive.setPower(0);
+        robot.rightDrive2.setPower(0);
+        robot.leftDrive2.setPower(0);
 
         //  robot.leftArm.setPower(0);
     }
@@ -49,6 +49,7 @@ public class FourMotorsDemo extends OpMode {
 
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
-
+        robot.leftDrive2.setPower(left);
+        robot.rightDrive2.setPower(right);
     }
 }
