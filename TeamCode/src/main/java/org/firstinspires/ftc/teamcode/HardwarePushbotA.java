@@ -54,8 +54,9 @@ public class HardwarePushbotA {
     /* Public OpMode members. */
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
-    public DcMotor rightDrive2 = null;
-    public DcMotor leftDrive2 = null;
+    public DcMotor armMotor = null;
+//    public DcMotor leftDrive2 = null;
+    public Servo handServo = null;
 
     public static final double MID_SERVO = 0.5;
     public static final double ARM_UP_POWER = 0.45;
@@ -78,25 +79,27 @@ public class HardwarePushbotA {
         // Define and Initialize Motors
         leftDrive = hwMap.get(DcMotor.class, "leftdrivef");
         rightDrive = hwMap.get(DcMotor.class, "rightdrivef");
-        leftDrive2 = hwMap.get(DcMotor.class, "leftdriveb");
-        rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
+        armMotor = hwMap.get(DcMotor.class, "armmotor");
+        handServo = hwMap.get(Servo.class, "hand");
+        //rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        leftDrive2.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDrive2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        armMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        //rightDrive2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
-        leftDrive2.setPower(0);
-        rightDrive2.setPower(0);
+        armMotor.setPower(0);
+
+        //rightDrive2.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
 
