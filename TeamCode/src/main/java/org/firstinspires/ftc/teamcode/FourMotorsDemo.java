@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-/**
- * Created by MSRobotics13 on 10/4/2017.
- */
 
+@TeleOp(name="FourMotors", group="OpMode")
 public class FourMotorsDemo extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;
