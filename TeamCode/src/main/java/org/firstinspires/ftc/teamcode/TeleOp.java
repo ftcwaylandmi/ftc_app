@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-
-@TeleOp(name="FourMotors", group="OpMode")
-public class FourMotorsDemo extends OpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TELEOP", group="OpMode")
+public class TeleOp extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
@@ -20,6 +16,7 @@ public class FourMotorsDemo extends OpMode {
         robot.init(hardwareMap);
         telemetry.addData("Say", "Hello World");
         telemetry.update();
+        robot.handServo.setPosition(0);
     }
 
 
