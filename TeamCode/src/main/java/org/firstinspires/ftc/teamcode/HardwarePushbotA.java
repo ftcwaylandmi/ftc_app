@@ -59,6 +59,9 @@ public class HardwarePushbotA {
 //    public DcMotor leftDrive2 = null;
     public Servo leftservo = null;
     public Servo rightservo = null;
+    public Servo bottomleftservo = null;
+    public Servo bottomrightservo = null;
+
 
     public static final double MID_SERVO = 0.5;
     public static final double ARM_UP_POWER = 0.45;
@@ -82,8 +85,11 @@ public class HardwarePushbotA {
         leftDrive = hwMap.get(DcMotor.class, "leftdrivef");
         rightDrive = hwMap.get(DcMotor.class, "rightdrivef");
         armMotor = hwMap.get(DcMotor.class, "armmotor");
-        leftservo = hwMap.get(Servo.class, "topleftservo");  //FIXME - Can't name 4 devices hand.  Need to change.
+        leftservo = hwMap.get(Servo.class, "topleftservo");
         rightservo = hwMap.get(Servo.class, "toprightservo");
+
+        bottomleftservo = hwMap.get(Servo.class, "bottomleftservo");
+        bottomrightservo = hwMap.get(Servo.class, "bottomrightservo");
         //rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

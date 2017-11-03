@@ -61,7 +61,11 @@ public class FourMotorsDemo extends OpMode {
 
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
         robot.leftservo.setPosition(robot.MID_SERVO + clawOffset);
-        robot.rightservo.setPosition(robot.MID_SERVO + clawOffset);
+        robot.rightservo.setPosition(robot.MID_SERVO - clawOffset);
+        robot.bottomleftservo.setPosition(robot.MID_SERVO + clawOffset);
+        robot.bottomrightservo.setPosition(robot.MID_SERVO - clawOffset);
+
+
         if (gamepad1.dpad_up) {
             robot.armMotor.setPower(.2);
         } else if (gamepad1.dpad_down) {
