@@ -32,7 +32,7 @@ public class FourMotorsDemo extends OpMode {
     @Override
     public void start() {
         telemetry.addData("Say", "Start initiated");
-        double val = robot.handServo.getPosition();
+        double val = robot.leftservo.getPosition();
         telemetry.addData("Say", "Servo at " + val);
         telemetry.update();
 
@@ -60,7 +60,8 @@ public class FourMotorsDemo extends OpMode {
             clawOffset -= CLAW_SPEED;
 
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        robot.handServo.setPosition(robot.MID_SERVO + clawOffset);
+        robot.leftservo.setPosition(robot.MID_SERVO + clawOffset);
+        robot.rightservo.setPosition(robot.MID_SERVO + clawOffset);
         if (gamepad1.dpad_up) {
             robot.armMotor.setPower(.2);
         } else if (gamepad1.dpad_down) {

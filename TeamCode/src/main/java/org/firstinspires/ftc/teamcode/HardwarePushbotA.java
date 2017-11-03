@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,7 +57,8 @@ public class HardwarePushbotA {
     public DcMotor rightDrive = null;
     public DcMotor armMotor = null;
 //    public DcMotor leftDrive2 = null;
-    public Servo handServo = null;
+    public Servo leftservo = null;
+    public Servo rightservo = null;
 
     public static final double MID_SERVO = 0.5;
     public static final double ARM_UP_POWER = 0.45;
@@ -80,7 +82,8 @@ public class HardwarePushbotA {
         leftDrive = hwMap.get(DcMotor.class, "leftdrivef");
         rightDrive = hwMap.get(DcMotor.class, "rightdrivef");
         armMotor = hwMap.get(DcMotor.class, "armmotor");
-        handServo = hwMap.get(Servo.class, "hand");
+        leftservo = hwMap.get(Servo.class, "topleftservo");  //FIXME - Can't name 4 devices hand.  Need to change.
+        rightservo = hwMap.get(Servo.class, "toprightservo");
         //rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -99,7 +102,8 @@ public class HardwarePushbotA {
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        handServo.setPosition(.5);
+        leftservo.setPosition(.5);
+        rightservo.setPosition(.5);
         //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
