@@ -91,8 +91,8 @@ public class HardwarePushbotA {
         bottomleftservo = hwMap.get(Servo.class, "bottomleftservo");
         bottomrightservo = hwMap.get(Servo.class, "bottomrightservo");
         //rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
-        leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         armMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         //rightDrive2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
