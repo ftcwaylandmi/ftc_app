@@ -66,9 +66,9 @@ public class FourMotorsDemo extends OpMode {
         robot.bottomrightservo.setPosition(robot.MID_SERVO + clawOffset);
 
 
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_down) {
             robot.armMotor.setPower(1);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad1.dpad_up) {
             robot.armMotor.setPower(-1);
         } else {
             robot.armMotor.setPower(0);
