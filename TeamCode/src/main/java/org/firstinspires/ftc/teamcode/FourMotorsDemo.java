@@ -67,7 +67,7 @@ public class FourMotorsDemo extends OpMode {
 
 
         if (gamepad1.dpad_down) {
-            robot.armMotor.setPower(1);
+            robot.armMotor.setPower(0.5);
         } else if (gamepad1.dpad_up) {
             robot.armMotor.setPower(-1);
         } else {
