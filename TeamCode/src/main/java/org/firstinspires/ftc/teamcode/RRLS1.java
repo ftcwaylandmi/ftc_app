@@ -15,6 +15,11 @@ public class RRLS1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        robot.init(hardwareMap);
+
+        waitForStart();
+
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
         sleep(200); // sleeping 200ms

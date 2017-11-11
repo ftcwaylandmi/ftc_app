@@ -1,16 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@Disabled
-@TeleOp(name="FourMotors", group="OpMode")
-public class FourMotorsDemo extends OpMode {
+@TeleOp(name="Dual Driver", group="OpMode")
+public class DualDriverTeleOp extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
@@ -66,10 +62,8 @@ public class FourMotorsDemo extends OpMode {
         robot.rightservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomleftservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomrightservo.setPosition(robot.MID_SERVO + clawOffset);
-
         arm = gamepad2.left_stick_y;
         robot.armMotor.setPower(arm/2);
-
 
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
