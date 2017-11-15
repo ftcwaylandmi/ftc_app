@@ -56,7 +56,7 @@ public class HardwarePushbotA {
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
     public DcMotor armMotor = null;
-//    public DcMotor leftDrive2 = null;
+    public DcMotor armMotor2 = null;
     public Servo leftservo = null;
     public Servo rightservo = null;
     public Servo bottomleftservo = null;
@@ -85,6 +85,7 @@ public class HardwarePushbotA {
         leftDrive = hwMap.get(DcMotor.class, "leftdrivef");
         rightDrive = hwMap.get(DcMotor.class, "rightdrivef");
         armMotor = hwMap.get(DcMotor.class, "armmotor");
+        armMotor2 = hwMap.get(DcMotor.class, "armmotor2");
         leftservo = hwMap.get(Servo.class, "topleftservo");
         rightservo = hwMap.get(Servo.class, "toprightservo");
 
@@ -94,13 +95,11 @@ public class HardwarePushbotA {
         leftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         armMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        //rightDrive2.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-
-        // Set all motors to zero power
+        armMotor2.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         armMotor.setPower(0);
-
+        armMotor2.setPower(0);
         //rightDrive2.setPower(0);
 
         // Set all motors to run without encoders.
@@ -108,6 +107,7 @@ public class HardwarePushbotA {
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftservo.setPosition(.5);
         rightservo.setPosition(.5);
         //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
