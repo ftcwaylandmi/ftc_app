@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.HardwarePushbotB;
  */
 
 @TeleOp(name="Demo-jdd", group="OpMode")
+@Disabled
 public class jdddemo extends OpMode {
     HardwarePushbotB robot = new HardwarePushbotB();
     double          clawOffset  = 0.0 ;

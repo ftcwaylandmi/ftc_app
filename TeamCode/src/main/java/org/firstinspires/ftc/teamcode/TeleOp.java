@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.Range;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TELEOP", group="OpMode")
+@Disabled
 public class TeleOp extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;

@@ -61,7 +61,7 @@ public class HardwarePushbotA {
     public Servo rightservo = null;
     public Servo bottomleftservo = null;
     public Servo bottomrightservo = null;
-
+    public Servo colorservo = null;
 
     public static final double MID_SERVO = 0.5;
     public static final double ARM_UP_POWER = 0.45;
@@ -88,13 +88,13 @@ public class HardwarePushbotA {
         armMotor2 = hwMap.get(DcMotor.class, "armmotor2");
         leftservo = hwMap.get(Servo.class, "topleftservo");
         rightservo = hwMap.get(Servo.class, "toprightservo");
-
+        colorservo = hwMap.get(Servo.class, "colorservo");
         bottomleftservo = hwMap.get(Servo.class, "bottomleftservo");
         bottomrightservo = hwMap.get(Servo.class, "bottomrightservo");
         //rightDrive2 = hwMap.get(DcMotor.class, "rightdriveb");
         leftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        armMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        armMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         armMotor2.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setPower(0);
         rightDrive.setPower(0);
@@ -110,6 +110,7 @@ public class HardwarePushbotA {
         armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftservo.setPosition(.5);
         rightservo.setPosition(.5);
+        colorservo.setPosition(0);
         //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }

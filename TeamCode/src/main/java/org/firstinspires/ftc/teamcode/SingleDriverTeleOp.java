@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name="Single Driver", group="OpMode")
+@Disabled
 public class SingleDriverTeleOp extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;

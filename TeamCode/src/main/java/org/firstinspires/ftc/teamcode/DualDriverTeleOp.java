@@ -10,7 +10,8 @@ public class DualDriverTeleOp extends OpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double          clawOffset  = 0.0 ;
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
-
+    double          lastElbow = 0;
+    final double    ELBOW_SPEED = 0.10;
 
 
     public void init() {
@@ -48,6 +49,7 @@ public class DualDriverTeleOp extends OpMode {
         double left;
         double right;
         double arm;
+        double arm2;
 
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
@@ -56,17 +58,36 @@ public class DualDriverTeleOp extends OpMode {
             clawOffset += CLAW_SPEED;
         else if (gamepad2.left_bumper)
             clawOffset -= CLAW_SPEED;
+        if(gamepad2.dpad_right)
+            clawOffset += CLAW_SPEED;
+        else if (gamepad2.dpad_left)
+            clawOffset -= CLAW_SPEED;
 
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
         robot.leftservo.setPosition(robot.MID_SERVO + clawOffset);
         robot.rightservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomleftservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomrightservo.setPosition(robot.MID_SERVO + clawOffset);
+        //FiXME figure out where striaght up is
+        robot.colorservo.setPosition(0);
+        //FIXME for autonomous mode figure out fully extended.
         arm = gamepad2.left_stick_y;
-        robot.armMotor.setPower(arm/2);
-
+        robot.armMotor.setPower(arm);
+        arm2 = gamepad2.right_stick_y;
+        telemetry.addData("Say", "arm power is at " + arm2);
+        if (arm2 == 0 ) {
+            if (lastElbow > 0) {
+                lastElbow -= ELBOW_SPEED;
+            } else if(lastElbow < 0) {
+                lastElbow += ELBOW_SPEED;
+            }
+        } else {
+            lastElbow = arm2;
+        }
+        robot.armMotor2.setPower(lastElbow);
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
+
 
         //Test commentFourMotorsDemo
 

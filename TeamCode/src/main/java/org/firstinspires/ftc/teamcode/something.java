@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,7 +11,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Created by MSRobotics13 on 10/3/2017.
  */
 @TeleOp(name="random",group="a_name")
-//@Diabled
+@Disabled
 public class something extends OpMode {
     HardwarePushbot robot = new HardwarePushbot();
 

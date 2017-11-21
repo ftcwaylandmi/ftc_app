@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.Range;
 
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.util.Range;
  * Created by First Robotics on 11/5/2017.
  */
 @Autonomous(name="right red left safe zone T 1 ", group="OpMode")
+@Disabled
 public class RRLS1 extends LinearOpMode {
     HardwarePushbotA robot = new HardwarePushbotA();
     double clawOffset = 0.0;
