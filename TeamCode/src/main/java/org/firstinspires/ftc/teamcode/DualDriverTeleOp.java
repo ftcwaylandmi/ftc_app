@@ -12,7 +12,10 @@ public class DualDriverTeleOp extends OpMode {
     final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
     double          lastElbow = 0;
     final double    ELBOW_SPEED = 0.10;
-
+    double          elbowval = 0.5;
+    int             elbowiter = 20;
+    final int       elbowitericr = 5;
+    final double    elbowvalicr = 0.05;
 
     public void init() {
         robot.init(hardwareMap);
@@ -75,15 +78,20 @@ public class DualDriverTeleOp extends OpMode {
         robot.armMotor.setPower(arm);
         arm2 = gamepad2.right_stick_y;
         telemetry.addData("Say", "arm power is at " + arm2);
-        if (arm2 == 0 ) {
-            if (lastElbow > 0) {
-                lastElbow -= ELBOW_SPEED;
-            } else if(lastElbow < 0) {
-                lastElbow += ELBOW_SPEED;
-            }
-        } else {
+        if (arm2 != 0) {
             lastElbow = arm2;
+
+        } else {
+            if (lastElbow != 0 && elbowiter > 0) {
+                lastElbow = elbowval;
+                elbowiter--;
+            } else {
+                lastElbow = 0;
+                elbowiter = //FIXME
+            }
         }
+
+
         robot.armMotor2.setPower(lastElbow);
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
