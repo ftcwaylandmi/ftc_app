@@ -16,6 +16,7 @@ public class DualDriverTeleOp extends OpMode {
     int             elbowiter = 20;
     final int       elbowitericr = 5;
     final double    elbowvalicr = 0.05;
+    int             elbowiterdefault = 20;
 
     public void init() {
         robot.init(hardwareMap);
@@ -87,7 +88,7 @@ public class DualDriverTeleOp extends OpMode {
                 elbowiter--;
             } else {
                 lastElbow = 0;
-                elbowiter = //FIXME
+                elbowiter = elbowiterdefault;
             }
         }
 
