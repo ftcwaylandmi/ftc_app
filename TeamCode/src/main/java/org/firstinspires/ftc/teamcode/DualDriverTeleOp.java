@@ -13,15 +13,17 @@ public class DualDriverTeleOp extends OpMode {
     double          lastElbow = 0;
     final double    ELBOW_SPEED = 0.10;
     double          elbowval = 0.5;
-    int             elbowiter = 20;
+    int             elbowiterdefault = 200;
+    int             elbowiter = elbowiterdefault;
     final int       elbowitericr = 5;
     final double    elbowvalicr = 0.05;
-    int             elbowiterdefault = 20;
+    final double    servoup = 0.37;
 
     public void init() {
         robot.init(hardwareMap);
         telemetry.addData("Say", "Hello World");
         telemetry.update();
+        robot.colorservo.setPosition(servoup);
     }
 
 
@@ -54,9 +56,16 @@ public class DualDriverTeleOp extends OpMode {
         double right;
         double arm;
         double arm2;
+        double turbo;
 
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
+        if (gamepad1.x) {
+            turbo = 1;
+
+        } else {
+            turbo = 0.75;
+        }
 
         if (gamepad2.right_bumper)
             clawOffset += CLAW_SPEED;
@@ -67,23 +76,45 @@ public class DualDriverTeleOp extends OpMode {
         else if (gamepad2.dpad_left)
             clawOffset -= CLAW_SPEED;
 
+        if (gamepad2.y) {
+            elbowiterdefault += elbowitericr;
+        } else if (gamepad2.b) {
+            elbowiterdefault -= elbowitericr;
+        }
+
+        if (gamepad2.x) {
+            elbowval += elbowvalicr;
+        } else if(gamepad2.a) {
+            elbowval -= elbowvalicr;
+        }
+
+
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
         robot.leftservo.setPosition(robot.MID_SERVO + clawOffset);
         robot.rightservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomleftservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomrightservo.setPosition(robot.MID_SERVO + clawOffset);
         //FiXME figure out where striaght up is
-        robot.colorservo.setPosition(0);
+        robot.colorservo.setPosition(servoup);
         //FIXME for autonomous mode figure out fully extended.
         arm = gamepad2.left_stick_y;
         robot.armMotor.setPower(arm);
         arm2 = gamepad2.right_stick_y;
         telemetry.addData("Say", "arm power is at " + arm2);
         if (arm2 != 0) {
-            lastElbow = arm2;
-
+            if( arm2 > 0 && arm2 < (lastElbow * 0.9)) {
+                lastElbow = arm2 * 0.9;
+            } else if ( arm2 < 0 && arm2 > (lastElbow * 0.9)){
+                lastElbow = arm2 * 0.9;
+            } else {
+                lastElbow = arm2;
+            }
+            elbowiter = elbowiterdefault;
         } else {
             if (lastElbow != 0 && elbowiter > 0) {
+                if (elbowiter < 15){
+                    elbowval = elbowval * 0.9;
+                }
                 lastElbow = elbowval;
                 elbowiter--;
             } else {
@@ -94,8 +125,8 @@ public class DualDriverTeleOp extends OpMode {
 
 
         robot.armMotor2.setPower(lastElbow);
-        robot.leftDrive.setPower(left);
-        robot.rightDrive.setPower(right);
+        robot.leftDrive.setPower(left * turbo);
+        robot.rightDrive.setPower(right * turbo);
 
 
         //Test commentFourMotorsDemo
