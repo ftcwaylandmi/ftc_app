@@ -110,7 +110,7 @@ public class HardwarePushbotA {
         armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftservo.setPosition(.5);
         rightservo.setPosition(.5);
-        colorservo.setPosition(0);
+        colorservo.setPosition(.35);
         //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }

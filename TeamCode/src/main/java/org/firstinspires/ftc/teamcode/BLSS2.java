@@ -13,6 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
 /**
  * Created by MSRobotics13 on 11/5/2017.
  */
@@ -25,10 +27,7 @@ public class BLSS2 extends LinearOpMode {
     double clawOffset = 0.0;
     final double CLAW_SPEED = 0.02;                 // sets rate to move servo
     VuforiaLocalizer vuforia;
-
-
-
-
+    ColorSensor color_sensor;
 
     int glyph;
     private ElapsedTime runtime = new ElapsedTime();
@@ -38,8 +37,11 @@ public class BLSS2 extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap);
+        color_sensor = hardwareMap.colorSensor.get("sensorcolor");
+        color_sensor.enableLed(false);
         robot.leftservo.setPosition(0);
         robot.rightservo.setPosition(0);
+        robot.colorservo.setPosition(.30);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -54,21 +56,45 @@ public class BLSS2 extends LinearOpMode {
         waitForStart();
 
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+
+        color_sensor.enableLed(true);
+        robot.colorservo.setPosition(-0.10);
+        sleep(200);
+        telemetry.addData("Blue", "%s", color_sensor.blue());
+        telemetry.addData("Red", "%s", color_sensor.red());
+        if( color_sensor.red() > 5) {
+            robot.leftDrive.setPower(0.15);
+            robot.rightDrive.setPower(0.15);
+            sleep(50);
+            robot.leftDrive.setPower(-0.15);
+            robot.rightDrive.setPower(-0.15);
+            sleep(50);
+        } else if (color_sensor.blue() > 5) {
+            robot.leftDrive.setPower(-0.15);
+            robot.rightDrive.setPower(-0.15);
+            sleep(50);
+            robot.leftDrive.setPower(0.15);
+            robot.rightDrive.setPower(0.15);
+            sleep(50);
+        }
+        robot.colorservo.setPosition(.30);
+
         telemetry.addData("VuMark", "%s visible", vuMark);
-
-
+        telemetry.update();
         if (vuMark.equals("center")) {
             //center
             telemetry.addData("Direction", "center");
-            telemetry.update();
             //straight
+
+
+
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
             sleep(400);
             //turn left
             robot.leftDrive.setPower(-.5);
             robot.rightDrive.setPower(.5);
-            sleep(2000);
+            sleep(8000);
             //drive forward
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
@@ -79,7 +105,6 @@ public class BLSS2 extends LinearOpMode {
         } else if (vuMark.equals("right")) {
             //right
             telemetry.addData("Direction", "right");
-            telemetry.update();
             //straight
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
@@ -87,7 +112,7 @@ public class BLSS2 extends LinearOpMode {
             //turn left
             robot.leftDrive.setPower(-.5);
             robot.rightDrive.setPower(.5);
-            sleep(1800);
+            sleep(7800);
             //drive forward
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
@@ -99,7 +124,6 @@ public class BLSS2 extends LinearOpMode {
         } else {
             //left
             telemetry.addData("Direction", "default left");
-            telemetry.update();
             //straight
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
@@ -107,7 +131,7 @@ public class BLSS2 extends LinearOpMode {
             //turn left
             robot.leftDrive.setPower(-.5);
             robot.rightDrive.setPower(.5);
-            sleep(2200);
+            sleep(8200);
             //drive forward
             robot.leftDrive.setPower(1);
             robot.rightDrive.setPower(1);
@@ -116,6 +140,7 @@ public class BLSS2 extends LinearOpMode {
             robot.leftservo.setPosition(.7);
             robot.rightservo.setPosition(.7);
         }
+        //telemetry.update();
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
     }

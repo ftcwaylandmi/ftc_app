@@ -18,6 +18,7 @@ public class DualDriverTeleOp extends OpMode {
     final int       elbowitericr = 5;
     final double    elbowvalicr = 0.05;
     final double    servoup = 0.37;
+    final double    motorpercentage = 0.95;
 
     public void init() {
         robot.init(hardwareMap);
@@ -49,6 +50,7 @@ public class DualDriverTeleOp extends OpMode {
         robot.leftDrive.setPower(0);
 
         robot.armMotor.setPower(0);
+        robot.colorservo.setPosition(.35);
     }
     @Override
     public void loop() {
@@ -60,7 +62,7 @@ public class DualDriverTeleOp extends OpMode {
 
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
-        if (gamepad1.x) {
+        if (gamepad1.right_bumper) {
             turbo = 1;
 
         } else {
@@ -102,10 +104,10 @@ public class DualDriverTeleOp extends OpMode {
         arm2 = gamepad2.right_stick_y;
         telemetry.addData("Say", "arm power is at " + arm2);
         if (arm2 != 0) {
-            if( arm2 > 0 && arm2 < (lastElbow * 0.9)) {
-                lastElbow = arm2 * 0.9;
-            } else if ( arm2 < 0 && arm2 > (lastElbow * 0.9)){
-                lastElbow = arm2 * 0.9;
+            if( arm2 > 0 && arm2 < (lastElbow * motorpercentage)) {
+                lastElbow = arm2 * motorpercentage;
+            } else if ( arm2 < 0 && arm2 > (lastElbow * motorpercentage)){
+                lastElbow = arm2 * motorpercentage;
             } else {
                 lastElbow = arm2;
             }

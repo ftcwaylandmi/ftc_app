@@ -22,6 +22,7 @@ public class RRLS1 extends LinearOpMode {
 
         waitForStart();
 
+
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
         sleep(200); // sleeping 200ms
