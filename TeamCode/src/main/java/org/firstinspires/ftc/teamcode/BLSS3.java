@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -13,13 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
-
 /**
  * Created by MSRobotics13 on 11/5/2017.
  */
-@Autonomous(name="BLSS2", group="OpMode")
-public class BLSS2 extends LinearOpMode {
+@Autonomous(name="BLSS3", group="OpMode")
+public class BLSS3 extends LinearOpMode {
 
     HardwarePushbotA robot = new HardwarePushbotA();
     OpenGLMatrix lastLocation = null;

@@ -64,7 +64,6 @@ public class DualDriverTeleOp extends OpMode {
         right = -gamepad1.right_stick_y;
         if (gamepad1.right_bumper) {
             turbo = 1;
-
         } else {
             turbo = 0.75;
         }
@@ -101,7 +100,7 @@ public class DualDriverTeleOp extends OpMode {
         //FIXME for autonomous mode figure out fully extended.
         arm = gamepad2.left_stick_y;
         robot.armMotor.setPower(arm);
-        arm2 = gamepad2.right_stick_y;
+        arm2 = (gamepad2.right_stick_y);
         telemetry.addData("Say", "arm power is at " + arm2);
         if (arm2 != 0) {
             if( arm2 > 0 && arm2 < (lastElbow * motorpercentage)) {

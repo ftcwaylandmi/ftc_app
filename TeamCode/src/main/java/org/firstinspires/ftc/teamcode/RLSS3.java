@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -13,13 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
-
 /**
  * Created by MSRobotics13 on 11/5/2017.
  */
-@Autonomous(name="BLSS2", group="OpMode")
-public class BLSS2 extends LinearOpMode {
+@Autonomous(name="BLSS3", group="OpMode")
+public class RLSS3 extends LinearOpMode {
 
     HardwarePushbotA robot = new HardwarePushbotA();
     OpenGLMatrix lastLocation = null;
@@ -101,28 +99,34 @@ public class BLSS2 extends LinearOpMode {
         }
         robot.colorservo.setPosition(colorarmup);
 
+
+        //drive forward
+        robot.leftDrive.setPower(1);
+        robot.rightDrive.setPower(1);
+        sleep(driveforwardtime);
+
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
         if (vuMark.equals("center")) {
             //center
             telemetry.addData("Direction", "center");
-            //turn left
-            robot.leftDrive.setPower(-turnspeed);
-            robot.rightDrive.setPower(turnspeed);
+            //turn right
+            robot.leftDrive.setPower(turnspeed);
+            robot.rightDrive.setPower(-turnspeed);
             sleep(centerrotatetime);
         } else if (vuMark.equals("right")) {
             //right
             telemetry.addData("Direction", "right");
-            //turn left
-            robot.leftDrive.setPower(-turnspeed);
-            robot.rightDrive.setPower(turnspeed);
+            //turn right
+            robot.leftDrive.setPower(turnspeed);
+            robot.rightDrive.setPower(-turnspeed);
             sleep(rightrotatetime);
         } else {
             //left
             telemetry.addData("Direction", "default left");
-            //turn left
-            robot.leftDrive.setPower(-turnspeed);
-            robot.rightDrive.setPower(turnspeed);
+            //turn right
+            robot.leftDrive.setPower(turnspeed);
+            robot.rightDrive.setPower(-turnspeed);
             sleep(leftrotatetime);
         }
         //drive forward
