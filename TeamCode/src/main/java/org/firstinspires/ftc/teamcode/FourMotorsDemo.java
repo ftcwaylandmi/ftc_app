@@ -36,7 +36,8 @@ public class FourMotorsDemo extends OpMode {
         double val = robot.leftservo.getPosition();
         telemetry.addData("Say", "Servo at " + val);
         telemetry.update();
-
+        robot.leftservo.setPosition(0.5);
+        robot.rightservo.setPosition(0.5);
     }
 
     @Override

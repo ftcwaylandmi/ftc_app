@@ -17,7 +17,7 @@ public class DualDriverTeleOp extends OpMode {
     int             elbowiter = elbowiterdefault;
     final int       elbowitericr = 5;
     final double    elbowvalicr = 0.05;
-    final double    servoup = 0.37;
+    final double    servoup = 1;
     final double    motorpercentage = 0.95;
 
     public void init() {
@@ -25,6 +25,7 @@ public class DualDriverTeleOp extends OpMode {
         telemetry.addData("Say", "Hello World");
         telemetry.update();
         robot.colorservo.setPosition(servoup);
+        robot.colorservo2.setPosition(1);
     }
 
 
@@ -38,6 +39,9 @@ public class DualDriverTeleOp extends OpMode {
     public void start() {
         telemetry.addData("Say", "Start initiated");
         double val = robot.leftservo.getPosition();
+        robot.colorservo2.setPosition(1);
+        robot.colorservo.setPosition(servoup);
+
         telemetry.addData("Say", "Servo at " + val);
         telemetry.update();
 
@@ -51,6 +55,7 @@ public class DualDriverTeleOp extends OpMode {
 
         robot.armMotor.setPower(0);
         robot.colorservo.setPosition(.35);
+        robot.colorservo2.setPosition(1);
     }
     @Override
     public void loop() {
@@ -89,18 +94,20 @@ public class DualDriverTeleOp extends OpMode {
             elbowval -= elbowvalicr;
         }
 
-
+        robot.colorservo.setPosition(servoup);
+        robot.colorservo2.setPosition(1);
         clawOffset = Range.clip(clawOffset, -0.5, 0.5);
         robot.leftservo.setPosition(robot.MID_SERVO + clawOffset);
         robot.rightservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomleftservo.setPosition(robot.MID_SERVO - clawOffset);
         robot.bottomrightservo.setPosition(robot.MID_SERVO + clawOffset);
-        //FiXME figure out where striaght up is
         robot.colorservo.setPosition(servoup);
         //FIXME for autonomous mode figure out fully extended.
         arm = gamepad2.left_stick_y;
         robot.armMotor.setPower(arm);
         arm2 = (gamepad2.right_stick_y);
+        telemetry.addData("Servo2", "position " + robot.colorservo2.getPosition());
+        telemetry.addData("Servo", "postition " + robot.colorservo.getPosition());
         telemetry.addData("Say", "arm power is at " + arm2);
         if (arm2 != 0) {
             if( arm2 > 0 && arm2 < (lastElbow * motorpercentage)) {

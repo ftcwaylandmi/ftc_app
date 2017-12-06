@@ -36,7 +36,7 @@ public class BRSS3 extends LinearOpMode {
     // handopen
     final double handopen = 0.70;
     // Center Rotate Time
-    final int centerrotatetime = 600;
+    final int centerrotatetime = 8000;
     // Left Rotate Time
     final int leftrotatetime = centerrotatetime + 200;
     // Right Rotate Time

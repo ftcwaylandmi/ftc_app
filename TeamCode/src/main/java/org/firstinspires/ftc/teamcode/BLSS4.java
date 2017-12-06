@@ -16,8 +16,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by MSRobotics13 on 11/5/2017.
  */
-@Autonomous(name="RLSS3", group="OpMode")
-public class RLSS3 extends LinearOpMode {
+@Autonomous(name="BLSS4", group="OpMode")
+public class BLSS4 extends LinearOpMode {
 
     HardwarePushbotA robot = new HardwarePushbotA();
     OpenGLMatrix lastLocation = null;
@@ -26,11 +26,11 @@ public class RLSS3 extends LinearOpMode {
     // Color sensor value - number for what the color value should be
     final double colorvalue = 5;
     // Color Arm Up
-    final double colorarmup = 30;
+    final double colorarmup = 0.30;
     // Color Arm Down
     final double colorarmdown = -0.60;
     // Color drive speed
-    final double colordrivespeed = 0.35;
+    final double colordrivespeed = 0.4;
     // turn speeed
     final double turnspeed = 0.50;
     // handopen
@@ -62,6 +62,7 @@ public class RLSS3 extends LinearOpMode {
         robot.leftservo.setPosition(.5);
         robot.rightservo.setPosition(.5);
         robot.colorservo.setPosition(colorarmup);
+        robot.colorservo2.setPosition(1);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -79,7 +80,8 @@ public class RLSS3 extends LinearOpMode {
 
         color_sensor.enableLed(true);
         robot.colorservo.setPosition(colorarmdown);
-        sleep(200);
+        robot.colorservo2.setPosition(-.2);
+        sleep(400);
         telemetry.addData("Blue", "%s", color_sensor.blue());
         telemetry.addData("Red", "%s", color_sensor.red());
         if( color_sensor.red() > colorvalue) {
@@ -97,36 +99,31 @@ public class RLSS3 extends LinearOpMode {
             robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
         }
+        sleep(100);
         robot.colorservo.setPosition(colorarmup);
-
-
-        //drive forward
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(1);
-        sleep(driveforwardtime);
-
+        robot.colorservo2.setPosition(1);
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
         if (vuMark.equals("center")) {
             //center
             telemetry.addData("Direction", "center");
-            //turn right
-            robot.leftDrive.setPower(turnspeed);
-            robot.rightDrive.setPower(-turnspeed);
+            //turn left
+            robot.leftDrive.setPower(-turnspeed);
+            robot.rightDrive.setPower(turnspeed);
             sleep(centerrotatetime);
         } else if (vuMark.equals("right")) {
             //right
             telemetry.addData("Direction", "right");
-            //turn right
-            robot.leftDrive.setPower(turnspeed);
-            robot.rightDrive.setPower(-turnspeed);
+            //turn left
+            robot.leftDrive.setPower(-turnspeed);
+            robot.rightDrive.setPower(turnspeed);
             sleep(rightrotatetime);
         } else {
             //left
             telemetry.addData("Direction", "default left");
-            //turn right
-            robot.leftDrive.setPower(turnspeed);
-            robot.rightDrive.setPower(-turnspeed);
+            //turn left
+            robot.leftDrive.setPower(-turnspeed);
+            robot.rightDrive.setPower(turnspeed);
             sleep(leftrotatetime);
         }
         //drive forward

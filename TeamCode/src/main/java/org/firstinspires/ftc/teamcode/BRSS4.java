@@ -16,13 +16,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 /**
  * Created by MSRobotics13 on 11/5/2017.
  */
-@Autonomous(name="RLSS3", group="OpMode")
-public class RLSS3 extends LinearOpMode {
+@Autonomous(name="BRSS4", group="OpMode")
+public class BRSS4 extends LinearOpMode {
 
     HardwarePushbotA robot = new HardwarePushbotA();
     OpenGLMatrix lastLocation = null;
     //colordrivetime is the amount of ms that it will drive forward/backwards in an attempt to knock off ball0
-    final int colordrivetime = 500;
+    final int colordrivetime = 450;
     // Color sensor value - number for what the color value should be
     final double colorvalue = 5;
     // Color Arm Up
@@ -36,7 +36,7 @@ public class RLSS3 extends LinearOpMode {
     // handopen
     final double handopen = 0.70;
     // Center Rotate Time
-    final int centerrotatetime = 4800;
+    final int centerrotatetime = 8000;
     // Left Rotate Time
     final int leftrotatetime = centerrotatetime + 200;
     // Right Rotate Time
@@ -62,6 +62,7 @@ public class RLSS3 extends LinearOpMode {
         robot.leftservo.setPosition(.5);
         robot.rightservo.setPosition(.5);
         robot.colorservo.setPosition(colorarmup);
+        robot.colorservo2.setPosition(1);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -79,6 +80,7 @@ public class RLSS3 extends LinearOpMode {
 
         color_sensor.enableLed(true);
         robot.colorservo.setPosition(colorarmdown);
+        robot.colorservo2.setPosition(-.2);
         sleep(200);
         telemetry.addData("Blue", "%s", color_sensor.blue());
         telemetry.addData("Red", "%s", color_sensor.red());
@@ -97,34 +99,29 @@ public class RLSS3 extends LinearOpMode {
             robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
         }
+        sleep(100);
         robot.colorservo.setPosition(colorarmup);
-
-
-        //drive forward
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(1);
-        sleep(driveforwardtime);
-
+        robot.colorservo2.setPosition(1);
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
         if (vuMark.equals("center")) {
             //center
             telemetry.addData("Direction", "center");
-            //turn right
+            //turn left
             robot.leftDrive.setPower(turnspeed);
             robot.rightDrive.setPower(-turnspeed);
             sleep(centerrotatetime);
         } else if (vuMark.equals("right")) {
             //right
             telemetry.addData("Direction", "right");
-            //turn right
+            //turn left
             robot.leftDrive.setPower(turnspeed);
             robot.rightDrive.setPower(-turnspeed);
             sleep(rightrotatetime);
         } else {
             //left
             telemetry.addData("Direction", "default left");
-            //turn right
+            //turn left
             robot.leftDrive.setPower(turnspeed);
             robot.rightDrive.setPower(-turnspeed);
             sleep(leftrotatetime);
@@ -133,6 +130,12 @@ public class RLSS3 extends LinearOpMode {
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
         sleep(driveforwardtime);
+        //turn left
+        robot.leftDrive.setPower(-0.5);
+        robot.rightDrive.setPower(0.5);
+        sleep(200);
+        robot.leftDrive.setPower(0.5);
+        sleep(200);
         //Open hands
         robot.leftservo.setPosition(handopen);
         robot.rightservo.setPosition(handopen);
