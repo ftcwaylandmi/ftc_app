@@ -2,16 +2,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="Dual Driver", group="OpMode")
-public class DualDriverTeleOp extends OpMode {
-    HardwarePushbotA robot = new HardwarePushbotA();
+@TeleOp(name="Dual Driver2", group="OpMode")
+public class DualDriverTeleOp2 extends OpMode {
+    HardwarePushbotA1 robot = new HardwarePushbotA1();
     double          clawOffset  = 0.0;
-    final double    CLAW_SPEED  = 0.05;                 // sets rate to move servo
+    final double    CLAW_SPEED  = 0.08;                 // sets rate to move servo
     double          lastElbow = 0;
-    final double    ELBOW_SPEED = 0.10;
+    final int       ELBOW_SPEED = 2;
     double          elbowval = 0.5;
     int             elbowiterdefault = 200;
     int             elbowiter = elbowiterdefault;
@@ -19,6 +21,10 @@ public class DualDriverTeleOp extends OpMode {
     final double    elbowvalicr = 0.05;
     final double    servoup = 1;
     final double    motorpercentage = 0.95;
+    int elbowloc = 0;
+    int rangebase = -600;
+    int rangescale = 1200;
+
 
     public void init() {
         robot.init(hardwareMap);
@@ -41,7 +47,10 @@ public class DualDriverTeleOp extends OpMode {
         double val = robot.leftservo.getPosition();
         robot.colorservo2.setPosition(1);
         robot.colorservo.setPosition(servoup);
-
+        robot.armMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.armMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.armMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        elbowloc = robot.armMotor2.getCurrentPosition();
         telemetry.addData("Say", "Servo at " + val);
         telemetry.update();
 
@@ -83,9 +92,9 @@ public class DualDriverTeleOp extends OpMode {
             clawOffset -= CLAW_SPEED;
 
         if (gamepad2.y) {
-            elbowiterdefault += elbowitericr;
-        } else if (gamepad2.b) {
-            elbowiterdefault -= elbowitericr;
+            rangebase = rangebase - 20;
+        } else if (gamepad2.a) {
+                rangebase = rangebase + 20;
         }
 
         if (gamepad2.x) {
@@ -109,28 +118,21 @@ public class DualDriverTeleOp extends OpMode {
         telemetry.addData("Servo2", "position " + robot.colorservo2.getPosition());
         telemetry.addData("Servo", "postition " + robot.colorservo.getPosition());
         telemetry.addData("Say", "arm power is at " + arm2);
-        if (arm2 != 0) {
-            if( arm2 > 0 && arm2 < (lastElbow * motorpercentage)) {
-                lastElbow = arm2 * motorpercentage;
-            } else if ( arm2 < 0 && arm2 > (lastElbow * motorpercentage)){
-                lastElbow = arm2 * motorpercentage;
-            } else {
-                lastElbow = arm2;
-            }
-            elbowiter = elbowiterdefault;
-        } else {
-            if (lastElbow != 0 && elbowiter > 0) {
-                if (elbowiter < 15){
-                    elbowval = elbowval * 0.9;
-                }
-                lastElbow = elbowval;
-                elbowiter--;
-            } else {
-                lastElbow = 0;
-                elbowiter = elbowiterdefault;
-            }
+        elbowloc += (ELBOW_SPEED * arm2);
+        /*if (elbowloc > rangebase) {
+            elbowloc = rangebase;
         }
-        robot.armMotor2.setPower(lastElbow);
+        if (elbowloc < (rangebase - rangescale)) {
+            elbowloc = (rangebase - rangescale);
+        }*/
+        telemetry.addData("elbow", "location: " + elbowloc);
+        robot.armMotor2.setTargetPosition(elbowloc);
+        if (true) {
+            robot.armMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.armMotor2.setPower(.40);
+        } else {
+            robot.armMotor2.setPower(0);
+        }
         robot.leftDrive.setPower(left * turbo);
         robot.rightDrive.setPower(right * turbo);
 

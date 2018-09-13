@@ -79,26 +79,27 @@ public class RLSS3 extends LinearOpMode {
 
         color_sensor.enableLed(true);
         robot.colorservo.setPosition(colorarmdown);
+        robot.colorservo2.setPosition(-.2);
         sleep(200);
         telemetry.addData("Blue", "%s", color_sensor.blue());
         telemetry.addData("Red", "%s", color_sensor.red());
-        if( color_sensor.red() > colorvalue) {
-            //robot.leftDrive.setPower(colordrivespeed);
-            robot.rightDrive.setPower(colordrivespeed);
+        if( color_sensor.red() > color_sensor.blue()) {
+            robot.leftDrive.setPower(colordrivespeed);
+            //robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
-            //robot.leftDrive.setPower(-colordrivespeed);
-            robot.rightDrive.setPower(-colordrivespeed);
+            robot.leftDrive.setPower(-colordrivespeed);
+            //robot.rightDrive.setPower(-colordrivespeed);
             sleep(colordrivetime);
         } else if (color_sensor.blue() > colorvalue) {
-            //robot.leftDrive.setPower(-colordrivespeed);
-            robot.rightDrive.setPower(-colordrivespeed);
+            robot.leftDrive.setPower(-colordrivespeed);
+            //robot.rightDrive.setPower(-colordrivespeed);
             sleep(colordrivetime);
-            //robot.leftDrive.setPower(colordrivespeed);
-            robot.rightDrive.setPower(colordrivespeed);
+            robot.leftDrive.setPower(colordrivespeed);
+            //robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
         }
         robot.colorservo.setPosition(colorarmup);
-
+        robot.colorservo2.setPosition(1);
 
         //drive forward
         robot.leftDrive.setPower(1);

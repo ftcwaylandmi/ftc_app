@@ -26,9 +26,9 @@ public class BLSS4 extends LinearOpMode {
     // Color sensor value - number for what the color value should be
     final double colorvalue = 5;
     // Color Arm Up
-    final double colorarmup = 0.30;
+    final double colorarmup = 1;
     // Color Arm Down
-    final double colorarmdown = -0.60;
+    final double colorarmdown = 0.30;
     // Color drive speed
     final double colordrivespeed = 0.4;
     // turn speeed
@@ -58,7 +58,7 @@ public class BLSS4 extends LinearOpMode {
 
         robot.init(hardwareMap);
         color_sensor = hardwareMap.colorSensor.get("sensorcolor");
-        color_sensor.enableLed(false);
+        color_sensor.enableLed(true);
         robot.leftservo.setPosition(.5);
         robot.rightservo.setPosition(.5);
         robot.colorservo.setPosition(colorarmup);
@@ -81,27 +81,36 @@ public class BLSS4 extends LinearOpMode {
         color_sensor.enableLed(true);
         robot.colorservo.setPosition(colorarmdown);
         robot.colorservo2.setPosition(-.2);
-        sleep(400);
+        sleep(300);
         telemetry.addData("Blue", "%s", color_sensor.blue());
         telemetry.addData("Red", "%s", color_sensor.red());
-        if( color_sensor.red() > colorvalue) {
+        if( color_sensor.red() > color_sensor.blue()) {
             //robot.leftDrive.setPower(colordrivespeed);
             robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
+            robot.rightDrive.setPower(0);
+            robot.colorservo.setPosition(colorarmup);
+            robot.colorservo2.setPosition(1);
+            sleep(100);
             //robot.leftDrive.setPower(-colordrivespeed);
             robot.rightDrive.setPower(-colordrivespeed);
             sleep(colordrivetime);
-        } else if (color_sensor.blue() > colorvalue) {
+        } else if (color_sensor.blue() > color_sensor.red()) {
             //robot.leftDrive.setPower(-colordrivespeed);
             robot.rightDrive.setPower(-colordrivespeed);
             sleep(colordrivetime);
+            robot.rightDrive.setPower(0);
+            robot.colorservo.setPosition(colorarmup);
+            robot.colorservo2.setPosition(1);
+            sleep(100);
+
             //robot.leftDrive.setPower(colordrivespeed);
             robot.rightDrive.setPower(colordrivespeed);
             sleep(colordrivetime);
         }
-        sleep(100);
         robot.colorservo.setPosition(colorarmup);
         robot.colorservo2.setPosition(1);
+
         telemetry.addData("VuMark", "%s visible", vuMark);
         telemetry.update();
         if (vuMark.equals("center")) {

@@ -36,7 +36,7 @@ public class BLSS2 extends LinearOpMode {
     // turn speeed
     final double turnspeed = 0.50;
     // handopen
-    final double handopen = 0.70;
+    final double handopen = -0.70;
     // Center Rotate Time
     final int centerrotatetime = 4800;
     // Left Rotate Time
@@ -61,7 +61,7 @@ public class BLSS2 extends LinearOpMode {
         robot.init(hardwareMap);
         color_sensor = hardwareMap.colorSensor.get("sensorcolor");
         color_sensor.enableLed(false);
-        robot.leftservo.setPosition(.5);
+        robot.leftservo.setPosition(-.5);
         robot.rightservo.setPosition(.5);
         robot.colorservo.setPosition(colorarmup);
 

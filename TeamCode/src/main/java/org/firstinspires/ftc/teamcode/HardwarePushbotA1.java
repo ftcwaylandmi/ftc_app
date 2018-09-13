@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -51,7 +50,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwarePushbotA {
+public class HardwarePushbotA1 {
     /* Public OpMode members. */
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
@@ -73,7 +72,7 @@ public class HardwarePushbotA {
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor */
-    public HardwarePushbotA() {
+    public HardwarePushbotA1() {
 
     }
 
@@ -97,7 +96,7 @@ public class HardwarePushbotA {
         leftDrive.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         armMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        armMotor2.setDirection(DcMotor.Direction.FORWARD);
+        armMotor2.setDirection(DcMotor.Direction.REVERSE);
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         armMotor.setPower(0);
@@ -109,11 +108,11 @@ public class HardwarePushbotA {
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftservo.setPosition(.5);
         rightservo.setPosition(.5);
-        //colorservo.setPosition(.35);
-        //colorservo2.setPosition(.5);
+        colorservo.setPosition(.35);
+        colorservo2.setPosition(.5);
         //rightDrive2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }

@@ -38,7 +38,7 @@ public class RLSS2 extends LinearOpMode {
 
         robot.init(hardwareMap);
         robot.leftservo.setPosition(0);
-        robot.rightservo.setPosition(0);
+        robot.rightservo.setPosition(.6);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -92,8 +92,8 @@ public class RLSS2 extends LinearOpMode {
             robot.rightDrive.setPower(1);
             sleep(200);
             //Open hands
-            robot.leftservo.setPosition(.7);
-            robot.rightservo.setPosition(.7);
+            robot.leftservo.setPosition(-.7);
+            robot.rightservo.setPosition(-.7);
 
         } else {
             //left
@@ -112,8 +112,8 @@ public class RLSS2 extends LinearOpMode {
             robot.rightDrive.setPower(1);
             sleep(200);
             //Open hands
-            robot.leftservo.setPosition(.7);
-            robot.rightservo.setPosition(.7);
+            robot.leftservo.setPosition(-.7);
+            robot.rightservo.setPosition(-.7);
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
